@@ -1,8 +1,9 @@
 var d3 = require("d3");
 
-var n = 40,
-    random = d3.randomNormal(0, .2),
-    data = d3.range(n).map(random);
+var data = [],
+    cursorX = 0, cursorY= 0,
+    prevX = 0, prevY = 0,
+    n = 40;
 
 var svg = d3.select("svg"),
     margin = {top: 20, right: 20, bottom: 20, left: 40},
@@ -15,7 +16,7 @@ var x = d3.scaleLinear()
     .range([0, width]);
 
 var y = d3.scaleLinear()
-    .domain([-1, 1])
+    .domain([0, 1500])
     .range([height, 0]);
 
 var line = d3.line()
@@ -44,26 +45,28 @@ g.append("g")
     .attr("class", "line")
   .transition()
     .duration(500)
-    .ease(d3.easeLinear)
-    .on("start", tick);
+    .ease(d3.easeLinear);
 
 function tick() {
+    var d = Math.sqrt(Math.pow(prevX - cursorX, 2) +
+                      Math.pow(prevY - cursorY, 2));
 
-  // Push a new data point onto the back.
-  data.push(random());
+    console.log(d);
+    data.push(d);
 
-  // Redraw the line.
-  d3.select(this)
-      .attr("d", line)
-      .attr("transform", null);
+    d3.select(".line")
+        .attr("d", line)
+        .attr("transform", null);
 
-  // Slide it to the left.
-  d3.active(this)
-      .attr("transform", "translate(" + x(-1) + ",0)")
-    .transition()
-      .on("start", tick);
+    // Pop the old data point off the front.
+    if(data.length > n){
+        data.shift();
+    }
 
-  // Pop the old data point off the front.
-  data.shift();
+}
 
+window.setInterval(tick, 5);
+document.onmousemove = function(e){
+    cursorX = e.pageX;
+    cursorY = e.pageY;
 }
