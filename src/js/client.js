@@ -3,7 +3,10 @@ var d3 = require("d3");
 var data = [],
     cursorX = 0, cursorY= 0,
     prevX = 0, prevY = 0,
-    sec = 30;
+    sec = 30,
+    max_distance = Math.sqrt(
+        Math.pow(window.innerWidth, 2) + Math.pow(window.innerHeight, 2)
+    );
 
 var svg = d3.select("svg"),
     margin = {top: 20, right: 20, bottom: 20, left: 40},
@@ -12,15 +15,15 @@ var svg = d3.select("svg"),
     g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 var x = d3.scaleLinear()
-    .domain([0, sec*1000])
+    .domain([0, sec])
     .range([0, width]);
 
 var y = d3.scaleLinear()
-    .domain([0, 60])
+    .domain([0, max_distance])
     .range([height, 0]);
 
 var line = d3.line()
-    .x(function(d, i) { return x(Date.now() - d.time); })
+    .x(function(d, i) { return x((Date.now() - d.time)/1000); })
     .y(function(d, i) { return y(d.distance); });
 
 g.append("defs").append("clipPath")
@@ -64,9 +67,6 @@ function tick() {
         .attr("transform", null);
 
     // Pop the old data point off the front.
-    if(data.length > sec){
-        // data.shift();
-    }
 
 }
 
