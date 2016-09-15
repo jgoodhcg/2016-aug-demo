@@ -66,7 +66,13 @@ function tick() {
         .attr("d", line)
         .attr("transform", null);
 
-    // Pop the old data point off the front.
+    data.filter(function(d){
+        if((Date.now() - d.time)/1000 > sec){
+            return false;
+        }else{
+            return true;
+        }
+    });
 
 }
 
