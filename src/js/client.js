@@ -16,7 +16,7 @@ var x = d3.scaleLinear()
     .range([0, width]);
 
 var y = d3.scaleLinear()
-    .domain([0, 1500])
+    .domain([0, 20])
     .range([height, 0]);
 
 var line = d3.line()
@@ -50,6 +50,9 @@ g.append("g")
 function tick() {
     var d = Math.sqrt(Math.pow(prevX - cursorX, 2) +
                       Math.pow(prevY - cursorY, 2));
+
+    prevX = cursorX;
+    prevY = cursorY;
 
     console.log(d);
     data.push(d);
