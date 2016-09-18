@@ -2,7 +2,6 @@ var d3 = require("d3");
 
 export default class LiveGraph{
     constructor(args){
-        this.data = [];
         this.svg_id = args.svg_id;
         this.time_window = args.time_window;
 
@@ -41,7 +40,7 @@ export default class LiveGraph{
         g.append("g")
             .attr("clip-path", "url(#clip)")
             .append("path")
-            .datum(this.data)
+            .datum(window.data)
             .attr("class", "line")
             .attr("id", this.svg_id+"_line")
             .transition()
@@ -49,25 +48,13 @@ export default class LiveGraph{
             .ease(d3.easeLinear);
     }
 
-    render(args){
-        var distance = Math.sqrt(Math.pow(args.prevX - args.cursorX, 2) +
-                                 Math.pow(args.prevY - args.cursorY, 2));
-
-        this.data.push({
-            "distance" : distance,
-            "time"     : Date.now(),
-            "velocity" : distance/args.tick_interval
-        });
-
+    render(){
         d3.select("#"+this.svg_id+"_line")
             .attr("d", this.line)
             .attr("transform", null);
 
     }
 
-    filter(){
-        // this.data = this.data.filter(this.filter_helper, this);
-    }
 
 }
 

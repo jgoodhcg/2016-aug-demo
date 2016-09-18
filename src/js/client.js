@@ -10,7 +10,9 @@ var tick_interval = 100, //milliseconds
     prevX = 0,
     prevY = 0;
 
-var distance = new LiveGraph({
+window.data = [];
+
+var distance_delta_graph = new LiveGraph({
     "margin"       : margin,
     "svg_id"       : "delta_distance",
     "time_window"  : 30000,
@@ -18,15 +20,16 @@ var distance = new LiveGraph({
 });
 
 function tick(){
-   distance.render({
-        tick_interval,
-        cursorX,
-        cursorY,
-        prevX,
-        prevY
+    var distance_delta = Math.sqrt(Math.pow(prevX - cursorX, 2) +
+                             Math.pow(prevY - cursorY, 2));
+
+    window.data.push({
+        "distance" : distance_delta,
+        "time"     : Date.now(),
+        "velocity" : distance_delta/tick_interval
     });
 
-    distance.filter();
+    distance_delta_graph.render();
 
     prevX = cursorX;
     prevY = cursorY;
