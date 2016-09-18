@@ -1,6 +1,6 @@
 import LiveGraph from "./LiveGraph.js";
 
-var tick_interval = 5, //milliseconds
+var tick_interval = 50, //milliseconds
     max_distance = Math.sqrt(
         Math.pow(window.innerWidth, 2) + Math.pow(window.innerHeight, 2)
     ),
@@ -10,7 +10,7 @@ var tick_interval = 5, //milliseconds
     prevX = 0,
     prevY = 0;
 
-var delta_distance = new LiveGraph({
+var distance = new LiveGraph({
     "margin"       : margin,
     "svg_id"       : "delta_distance",
     "time_window"  : 30000,
@@ -18,7 +18,7 @@ var delta_distance = new LiveGraph({
 });
 
 function tick(){
-    delta_distance.render({
+   distance.render({
         tick_interval,
         cursorX,
         cursorY,
@@ -26,7 +26,7 @@ function tick(){
         prevY
     });
 
-    delta_distance.filter();
+    // distance.filter();
 
     prevX = cursorX;
     prevY = cursorY;

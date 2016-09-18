@@ -42,7 +42,7 @@ export default class LiveGraph{
             .attr("clip-path", "url(#clip)")
             .append("path")
             .datum(this.data)
-            .attr("class", this.svg_id+"_line");
+            .attr("class", this.svg_id+"_line")
             .transition()
             .duration(500)
             .ease(d3.easeLinear);
@@ -65,13 +65,15 @@ export default class LiveGraph{
     }
 
     filter(){
-        this.data = this.data.filter(function(d){
-            if((Date.now() - d.time) > this.time_window){
-                return false;
-            }else{
-                return true;
-            }
-        }, this);
+        this.data = this.data.filter(this.filter_helper, this);
+    }
+
+    filter_helper(d,i,data){
+        if((Date.now() - d.time) < this.time_window){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
 
