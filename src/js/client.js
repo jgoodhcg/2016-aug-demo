@@ -1,4 +1,4 @@
-import DistanceDelta from "./DistanceDelta.js";
+import Velocity from "./Velocity.js";
 
 //
 // Set up some global state
@@ -20,11 +20,11 @@ window.data = [];
 // Create graphs
 //
 
-var distance_delta_graph = new DistanceDelta({
+var velocity_graph = new Velocity({
     "margin"       : margin,
-    "svg_id"       : "delta_distance",
+    "svg_id"       : "velocity",
     "time_window"  : 30000,
-    "max_distance" : max_distance
+    "max_y" : max_distance
 });
 
 //
@@ -41,7 +41,7 @@ function tick(){
         "velocity" : distance_delta/tick_interval
     });
 
-    distance_delta_graph.render();
+    velocity_graph.render();
 
     prevX = cursorX;
     prevY = cursorY;
