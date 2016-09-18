@@ -6,7 +6,4 @@ serves on port `8081`
 webpack socket port `8080`
 
 ## production mode with nginx
-todo
-- [ ] alter webpack production to put files in nginx accessible spot
-- [ ] configure nginx
 
