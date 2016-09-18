@@ -10,17 +10,13 @@ export default class LiveGraph{
             height = +this.svg.attr("height") - args.margin.top - args.margin.bottom,
             g = this.svg.append("g").attr("transform", "translate(" + args.margin.left + "," + args.margin.top + ")");
 
-        var x = d3.scaleLinear()
+        this.x = d3.scaleLinear()
             .domain([0, this.time_window])
             .range([0, width]);
 
-        var y = d3.scaleLinear()
+        this.y = d3.scaleLinear()
             .domain([0, args.max_distance])
             .range([height, 0]);
-
-        this.line = d3.line()
-            .x(function(d, i) { return x((Date.now() - d.time)); })
-            .y(function(d, i) { return y(d.distance); });
 
         g.append("defs").append("clipPath")
             .attr("id", "clip")
@@ -30,12 +26,12 @@ export default class LiveGraph{
 
         g.append("g")
             .attr("class", "axis axis--x")
-            .attr("transform", "translate(0," + y(0) + ")")
-            .call(d3.axisBottom(x));
+            .attr("transform", "translate(0," + this.y(0) + ")")
+            .call(d3.axisBottom(this.x));
 
         g.append("g")
             .attr("class", "axis axis--y")
-            .call(d3.axisLeft(y));
+            .call(d3.axisLeft(this.y));
 
         g.append("g")
             .attr("clip-path", "url(#clip)")
