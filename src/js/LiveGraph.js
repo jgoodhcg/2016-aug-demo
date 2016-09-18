@@ -42,7 +42,8 @@ export default class LiveGraph{
             .attr("clip-path", "url(#clip)")
             .append("path")
             .datum(this.data)
-            .attr("class", this.svg_id+"_line")
+            .attr("class", "line")
+            .attr("id", this.svg_id+"_line")
             .transition()
             .duration(500)
             .ease(d3.easeLinear);
@@ -58,7 +59,7 @@ export default class LiveGraph{
             "velocity" : distance/args.tick_interval
         });
 
-        d3.select("."+this.svg_id+"_line")
+        d3.select("#"+this.svg_id+"_line")
             .attr("d", this.line)
             .attr("transform", null);
 
