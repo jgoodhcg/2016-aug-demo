@@ -66,15 +66,8 @@ export default class LiveGraph{
     }
 
     filter(){
-        this.data = this.data.filter(this.filter_helper, this);
+        // this.data = this.data.filter(this.filter_helper, this);
     }
 
-    filter_helper(d,i,data){
-        if((Date.now() - d.time) < this.time_window){
-            return true;
-        }else{
-            return false;
-        }
-    }
 }
 

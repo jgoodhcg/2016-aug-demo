@@ -1,6 +1,6 @@
 import LiveGraph from "./LiveGraph.js";
 
-var tick_interval = 50, //milliseconds
+var tick_interval = 100, //milliseconds
     max_distance = Math.sqrt(
         Math.pow(window.innerWidth, 2) + Math.pow(window.innerHeight, 2)
     ),
@@ -26,13 +26,16 @@ function tick(){
         prevY
     });
 
-    // distance.filter();
+    distance.filter();
 
     prevX = cursorX;
     prevY = cursorY;
 }
 
-window.setInterval(tick, tick_interval);
+var interval_id = window.setInterval(tick, tick_interval);
+window.setTimeout(
+    function(){window.clearInterval(interval_id);},
+    tick_interval*200);
 document.onmousemove = function(e){
     cursorX = e.pageX;
     cursorY = e.pageY;
