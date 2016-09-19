@@ -1,5 +1,6 @@
-import Velocity from "./Velocity.js";
+import Work from "./Work.js";
 import Acceleration from "./Acceleration.js";
+import Velocity from "./Velocity.js";
 import Position from "./Position.js";
 
 //
@@ -69,6 +70,14 @@ window.onload = function(){
         "min_y" : min_acceleration
     });
 
+    var work_graph = new Work({
+        margin,
+        time_window,
+        "svg_id": "work",
+        "max_y" : max_work,
+        "min_y" : min_work
+    });
+
     //
     // set up the tick rate and capture mouse movement
     //
@@ -117,6 +126,7 @@ window.onload = function(){
         position_graph.render();
         velocity_graph.render();
         acceleration_graph.render();
+        work_graph.render();
 
         prevX = cursorX;
         prevY = cursorY;
