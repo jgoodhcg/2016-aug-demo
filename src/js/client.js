@@ -3,30 +3,31 @@ import Acceleration from "./Acceleration.js";
 import Position from "./Position.js";
 
 //
-// Set up some global state
+// Set up some global state and variables for the tick function
 //
 
-var tick_interval = 100, //milliseconds
-    max_distance = Math.sqrt(
-        Math.pow(window.innerWidth, 2) + Math.pow(window.innerHeight, 2)
-    ),
+var body = document.body,
+    html = document.documentElement,
+    height,
     margin = {top: 20, right: 20, bottom: 20, left: 40},
+
+    tick_interval = 100, //milliseconds
+    time_window = 30000,
+
     cursorX = 0,
     cursorY = 0,
     prevX = 0,
     prevY = 0,
+
     total_distance = 0,
-    time_window = 30000,
-    body = document.body,
-    html = document.documentElement,
-    height,
     distance_delta = 0,
     velocity = 0,
     prev_velocity = 0;
 
-window.data = [];
+window.data = []; // global object all graphs subscribe to
 
 window.onload = function(){
+    // max distance the mouse can move has to be determined on load
     height = Math.max( body.scrollHeight, body.offsetHeight,
                        html.clientHeight, html.scrollHeight, html.offsetHeight );
 
@@ -45,16 +46,16 @@ window.onload = function(){
         margin,
         time_window,
         "svg_id": "velocity",
-        "max_y" : max_distance/tick_interval,
-        "min_y" : -(max_distance/tick_interval)
+        "max_y" : height/tick_interval,
+        "min_y" : -(height/tick_interval)
     });
 
     var acceleration_graph = new Acceleration({
         margin,
         time_window,
         "svg_id": "acceleration",
-        "max_y" : max_distance/Math.pow(tick_interval, 2),
-        "min_y" : -(max_distance/Math.pow(tick_interval, 2))
+        "max_y" : height/Math.pow(tick_interval, 2),
+        "min_y" : -(height/Math.pow(tick_interval, 2))
     });
 
     //
