@@ -27,11 +27,25 @@ export default class LiveGraph{
         g.append("g")
             .attr("class", "axis axis--x")
             .attr("transform", "translate(0," + this.y(0) + ")")
-            .call(d3.axisBottom(this.x));
+            .call(
+                d3.axisBottom(this.x)
+                    .tickValues(d3.range(1000, 31000, 1000))
+                    .tickFormat(d3.formatPrefix(",.0", 1e3))
+            );
 
         g.append("g")
             .attr("class", "axis axis--y")
             .call(d3.axisLeft(this.y));
+
+        g.append("g")
+            .attr("class", "label_y")
+            .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 0 - args.margin.left)
+            .attr("x", 0 - (height / 2))
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .text(args.label);
 
         g.append("g")
             .attr("clip-path", "url(#clip)")
