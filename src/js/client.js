@@ -3,12 +3,11 @@ import Acceleration from "./Acceleration.js";
 import Position from "./Position.js";
 
 //
-// Set up some global state and variables for the tick function
+// Set up some global state and variables 
 //
 
 var body = document.body,
     html = document.documentElement,
-    height,
     margin = {top: 20, right: 20, bottom: 20, left: 40},
 
     tick_interval = 100, //milliseconds
@@ -18,18 +17,30 @@ var body = document.body,
     cursorY = 0,
     prevX = 0,
     prevY = 0,
+    mouse_mass = 1,
 
     total_distance = 0,
     distance_delta = 0,
     velocity = 0,
-    prev_velocity = 0;
+    prev_velocity = 0,
+    start_time = Date.now(),
+    total_energy = 0;
 
-window.data = []; // global object all graphs subscribe to
+    window.data = []; // global object all graphs subscribe to
 
 window.onload = function(){
     // max distance the mouse can move has to be determined on load
-    height = Math.max( body.scrollHeight, body.offsetHeight,
-                       html.clientHeight, html.scrollHeight, html.offsetHeight );
+    var height = Math.max( body.scrollHeight, body.offsetHeight,
+                           html.clientHeight, html.scrollHeight, html.offsetHeight ),
+        max_position = height,
+        min_position = 0,
+        max_velocity = height/tick_interval,
+        min_velocity = - max_velocity,
+        max_acceleration = height/Math.pow(tick_interval, 2),
+        min_acceleration = - max_acceleration,
+        max_work = mouse_mass * max_acceleration * height,
+        min_work = - max_work;
+
 
     //
     // Create graphs
@@ -39,23 +50,23 @@ window.onload = function(){
         margin,
         time_window,
         "svg_id": "position",
-        "max_y" : height,
-        "min_y" : 0
+        "max_y" : max_position,
+        "min_y" : min_position
     });
     var velocity_graph = new Velocity({
         margin,
         time_window,
         "svg_id": "velocity",
-        "max_y" : height/tick_interval,
-        "min_y" : -(height/tick_interval)
+        "max_y" : max_velocity,
+        "min_y" : min_velocity
     });
 
     var acceleration_graph = new Acceleration({
         margin,
         time_window,
         "svg_id": "acceleration",
-        "max_y" : height/Math.pow(tick_interval, 2),
-        "min_y" : -(height/Math.pow(tick_interval, 2))
+        "max_y" : max_acceleration,
+        "min_y" : min_acceleration
     });
 
     //
@@ -85,11 +96,21 @@ window.onload = function(){
 
         total_distance += distance_delta;
 
+        var acceleration = (prev_velocity - velocity ) / tick_interval,
+            force = mouse_mass * acceleration,
+            work = force * distance_delta,
+            energy_conversion = work/tick_interval;
+
+        total_energy += energy_conversion
+
         window.data.push({
             "y"        : cursorY,
             "velocity" : distance_delta/tick_interval,
-            "acceleration": (prev_velocity - velocity ) / tick_interval,
-            "total_distance" : total_distance,
+            acceleration,
+            total_distance,
+            work,
+            energy_conversion,
+            total_energy,
             "time"     : Date.now(),
         });
 
