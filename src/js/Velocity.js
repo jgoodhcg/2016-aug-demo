@@ -7,6 +7,6 @@ export default class Velocity extends LiveGraph{
 
         this.line = d3.line()
             .x((d,i,data) => this.x(Date.now() - d.time))
-            .y((d,i,data) => this.y(d.distance));
+            .y((d,i,data) => this.y(d.velocity));
     }
 }
