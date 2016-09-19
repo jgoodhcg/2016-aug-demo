@@ -15,7 +15,7 @@ export default class LiveGraph{
             .range([0, width]);
 
         this.y = d3.scaleLinear()
-            .domain([0, args.max_y])
+            .domain([args.min_y, args.max_y])
             .range([height, 0]);
 
         g.append("defs").append("clipPath")

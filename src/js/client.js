@@ -1,4 +1,6 @@
 import Velocity from "./Velocity.js";
+import Acceleration from "./Acceleration.js";
+import Position from "./Position.js";
 
 //
 // Set up some global state
@@ -12,7 +14,9 @@ var tick_interval = 100, //milliseconds
     cursorX = 0,
     cursorY = 0,
     prevX = 0,
-    prevY = 0;
+    prevY = 0,
+    total_distance = 0,
+    time_window = 30000;
 
 window.data = [];
 
@@ -20,28 +24,52 @@ window.data = [];
 // Create graphs
 //
 
-var velocity_graph = new Velocity({
-    "margin"       : margin,
-    "svg_id"       : "velocity",
-    "time_window"  : 30000,
-    "max_y" : max_distance
+var position_graph = new Position({
+    margin,
+    time_window,
+    "svg_id": "position",
+    "max_y" : window.innerHeight,
+    "min_y" : 0
 });
+var velocity_graph = new Velocity({
+    margin,
+    time_window,
+    "svg_id"       : "velocity",
+    "max_y" : max_distance,
+    "min_y" : 0
+});
+
+var acceleration_graph = new Acceleration({
+    margin,
+    time_window,
+    tick_interval,
+    "svg_id"       : "acceleration",
+    "max_y" : max_distance/tick_interval,
+    "min_y" : -(max_distance/tick_interval)
+});
+
 
 //
 // tick funcion renders every "frame" of the graphs and updates global (window) data array
 //
 
 function tick(){
-    var distance_delta = Math.sqrt(Math.pow(prevX - cursorX, 2) +
-                             Math.pow(prevY - cursorY, 2));
+    var distance_delta = cursorY - prevY;
+        // = Math.sqrt(Math.pow(prevX - cursorX, 2) +
+        //                      Math.pow(prevY - cursorY, 2));
+
+    total_distance += distance_delta;
 
     window.data.push({
+        "y"        : cursorY,
         "distance" : distance_delta,
+        "total_distance" : total_distance,
         "time"     : Date.now(),
-        "velocity" : distance_delta/tick_interval
     });
 
-    velocity_graph.render();
+    position_graph.render();
+    // velocity_graph.render();
+    // acceleration_graph.render();
 
     prevX = cursorX;
     prevY = cursorY;
