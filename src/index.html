@@ -1,22 +1,30 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<style>
+<link rel="stylesheet" type="text/css" href="css/app.css">
 
-.line {
-  fill: none;
-  stroke: #000;
-  stroke-width: 1.5px;
-}
-
-</style>
-<h1>Position at time (milliseconds ago)</h1>
-<svg id="position" width="960" height="500"></svg>
-<h1>Velocity at time (milliseconds ago)</h1>
-<svg id="velocity" width="960" height="500"></svg>
-<h1>Acceleration at time (milliseconds ago)</h1>
-<svg id="acceleration" width="960" height="500"></svg>
-<h1>Work at time (milliseconds ago)</h1>
+<div class="card">
+  <h1>Position at time (milliseconds ago)</h1>
+  <hr>
+  <svg id="position" width="960" height="500"></svg>
+</div>
+<div class="card">
+  <h1>Velocity at time (milliseconds ago)</h1>
+  <hr>
+  <svg id="velocity" width="960" height="500"></svg>
+</div>
+<div class="card">
+  <h1>Acceleration at time (milliseconds ago)</h1>
+  <hr>
+  <svg id="acceleration" width="960" height="500"></svg>
+</div>
+<div class="card">
+  <h1>Work at time (milliseconds ago)</h1>
+  <hr>
 <svg id="work" width="960" height="500"></svg>
-<h1>Total Energy at time (milliseconds ago)</h1>
-<svg id="total_energy" width="960" height="500"></svg>
+</div>
+<div class="card">
+  <h1>Total Energy at time (milliseconds ago)</h1>
+  <hr>
+  <svg id="total_energy" width="960" height="500"></svg>
+</div>
 <script src="client.min.js"></script>

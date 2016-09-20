@@ -6,6 +6,7 @@ export default class LiveGraph{
         this.time_window = args.time_window;
 
         this.svg = d3.select("#"+this.svg_id);
+
         var  width = +this.svg.attr("width") - args.margin.left - args.margin.right,
             height = +this.svg.attr("height") - args.margin.top - args.margin.bottom,
             g = this.svg.append("g").attr("transform", "translate(" + args.margin.left + "," + args.margin.top + ")");

@@ -36,15 +36,15 @@ var body = document.body,
 
 window.onload = function(){
     // max distance the mouse can move has to be determined on load
-    var height = Math.max( body.scrollHeight, body.offsetHeight,
+    var doc_height = Math.max( body.scrollHeight, body.offsetHeight,
                            html.clientHeight, html.scrollHeight, html.offsetHeight ),
-        max_position = height,
+        max_position = doc_height,
         min_position = 0,
-        max_velocity = height/tick_interval,
+        max_velocity = doc_height/tick_interval,
         min_velocity = - max_velocity,
-        max_acceleration = height/Math.pow(tick_interval, 2),
+        max_acceleration = doc_height/Math.pow(tick_interval, 2),
         min_acceleration = - max_acceleration,
-        max_work = mouse_mass * max_acceleration * height,
+        max_work = mouse_mass * max_acceleration * doc_height,
         min_work = - max_work,
         max_total_energy = max_work * tick_interval,
         min_total_energy = 0;
