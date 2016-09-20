@@ -15,7 +15,7 @@ var body = document.body,
     html = document.documentElement,
     margin = {top: 20, right: 20, bottom: 20, left: 70},
 
-    tick_interval = 100, //milliseconds
+    tick_interval = 10, //milliseconds
     time_window = 30000,
     tick_num = time_window / tick_interval,
 
@@ -100,14 +100,26 @@ window.onload = function(){
     //
 
     var interval_id = window.setInterval(tick, tick_interval);
-    window.setTimeout(
-        function(){window.clearInterval(interval_id);},
-        tick_interval*200);
-
+    document.body.onkeydown = function(e){
+        if(e.keyCode == 32){
+            if(interval_id === null){
+                interval_id = window.setInterval(tick, tick_interval);
+            }else{
+                window.clearInterval(interval_id)
+                interval_id = null;
+            }
+        }
+        // prevents the scrolling
+        if(e.keyCode == 32 && e.target == document.body) {
+            e.preventDefault();
+            return false;
+        }
+    }
     document.onmousemove = function(e){
         cursorX = e.pageX;
         cursorY = e.pageY;
     }
+
     //
     // tick funcion renders every "frame" of the graphs and updates global (window) data array
     //

@@ -2,29 +2,41 @@
 <meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="css/app.css">
 
-<div class="card">
-  <h1>Position at time (milliseconds ago)</h1>
+
+<div class="card title">
+  <h1>Demo for Shapelog</h1>
   <hr>
-  <svg id="position" width="960" height="500"></svg>
+  <p>This demo tracks vertical mouse movement and graphs some pseudo physics properties.</p>
+  <p>
+    The mouse is sampled ~100 times per second, press the <code>spacebar</code>
+    to pause/unpause the sampling.
+  </p>
+  <p>The x axis for each graph is time in milliseconds ago.</p>
+  <p></p>
 </div>
 <div class="card">
-  <h1>Velocity at time (milliseconds ago)</h1>
+  <h1>Position  </h1>
   <hr>
-  <svg id="velocity" width="960" height="500"></svg>
+  <svg id="position" width="480" height="250"></svg>
 </div>
 <div class="card">
-  <h1>Acceleration at time (milliseconds ago)</h1>
+  <h1>Velocity  </h1>
   <hr>
-  <svg id="acceleration" width="960" height="500"></svg>
+  <svg id="velocity" width="480" height="250"></svg>
 </div>
 <div class="card">
-  <h1>Work at time (milliseconds ago)</h1>
+  <h1>Acceleration  </h1>
   <hr>
-<svg id="work" width="960" height="500"></svg>
+  <svg id="acceleration" width="480" height="250"></svg>
 </div>
 <div class="card">
-  <h1>Total Energy at time (milliseconds ago)</h1>
+  <h1>Work  </h1>
   <hr>
-  <svg id="total_energy" width="960" height="500"></svg>
+<svg id="work" width="480" height="250"></svg>
+</div>
+<div class="card">
+  <h1>Total Energy  </h1>
+  <hr>
+  <svg id="total_energy" width="480" height="250"></svg>
 </div>
 <script src="client.min.js"></script>

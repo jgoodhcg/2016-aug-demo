@@ -30,7 +30,7 @@ export default class LiveGraph{
             .attr("transform", "translate(0," + this.y(0) + ")")
             .call(
                 d3.axisBottom(this.x)
-                    .tickValues(d3.range(1000, 31000, 1000))
+                    .tickValues(d3.range(1000, 31000, 4000))
                     .tickFormat(d3.formatPrefix(",.0", 1e3))
             );
 
