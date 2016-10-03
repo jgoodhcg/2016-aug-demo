@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+require('../sass/app.scss');
 
 import Layout from "./components/layout";
 

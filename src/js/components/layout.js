@@ -4,7 +4,7 @@ export default class Layout extends React.Component {
     constructor() {
         super();
         this.state = {
-            title: "Welcome",
+            title: "Welcome"
         };
     }
 
@@ -14,9 +14,9 @@ export default class Layout extends React.Component {
 
     render() {
         return (
-                <div>
+            <div class="test">
                 "stuff"
-                </div>
+            </div>
         );
     }
 }
